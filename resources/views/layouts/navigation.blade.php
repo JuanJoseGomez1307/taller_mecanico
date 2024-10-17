@@ -29,6 +29,12 @@
                     </x-nav-link>
                 </div>
 
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('servicios.index')" :active="request()->routeIs('servicios.index')">
+                        {{ __('Servicios') }}
+                    </x-nav-link>
+                </div>
+
                 
 
             </div>
@@ -97,13 +103,19 @@
         </div>
 
         
-
         <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
             <div class="pt-2 pb-3 space-y-1">
                     <x-responsive-nav-link :href="route('vehiculos.index')" :active="request()->routeIs('vehiculos.index')">
                         {{ __('Vehiculos') }}
                     </x-responsive-nav-link>
             </div>
+
+            <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+                <div class="pt-2 pb-3 space-y-1">
+                        <x-responsive-nav-link :href="route('servicios.index')" :active="request()->routeIs('servicios.index')">
+                            {{ __('Servicios') }}
+                        </x-responsive-nav-link>
+                </div>
 
     
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Servicio;
+use Illuminate\Support\Facades\DB;
 
 class ServicioController extends Controller
 {
@@ -12,6 +14,10 @@ class ServicioController extends Controller
     public function index()
     {
         //
+        $servicios = DB::table('servicios')
+        ->join('vehiculos', 'servicios.vehiculo_id', '=', 'vehiculos.id') 
+        ->get();
+        return view('servicio.index',['servicios'=>$servicios]);
     }
 
     /**
@@ -20,6 +26,10 @@ class ServicioController extends Controller
     public function create()
     {
         //
+        $vehiculos=DB::table('vehiculos')
+        ->orderby ('matricula')
+        ->get();
+        return view('servicio.create',['vehiculos'=>$vehiculos]);
     }
 
     /**
@@ -28,6 +38,18 @@ class ServicioController extends Controller
     public function store(Request $request)
     {
         //
+        $servicio = new Servicio();
+        $servicio->vehiculo_id=$request->matricula;
+        $servicio->fecha_servicio=$request->fecha;
+        $servicio->costo=$request->costo;
+        $servicio->descripcion=$request->descri;
+        $servicio->save();
+
+        $servicios = DB::table('servicios')
+        ->join('vehiculos', 'servicios.vehiculo_id','=','vehiculos.id')
+        ->select('servicios.*',"vehiculos.matricula")
+        ->get();
+        return view('servicio.index',['servicios'=>$servicios]);
     }
 
     /**
@@ -44,6 +66,15 @@ class ServicioController extends Controller
     public function edit(string $id)
     {
         //
+        $servicio = Servicio::find($id);
+
+       
+
+
+        $vehiculos =DB::table('vehiculos')
+        ->orderBy('matricula')
+        ->get();
+        return view('servicio.edit', ['servicio'=>$servicio, 'vehiculos'=>$vehiculos]);
     }
 
     /**
@@ -52,6 +83,19 @@ class ServicioController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $servicio = Servicio::find($id);
+
+        $servicio->vehiculo_id=$request->matricula;
+        $servicio->fecha_servicio=$request->fecha;
+        $servicio->costo=$request->costo;
+        $servicio->descripcion=$request->descri;
+        $servicio->save();
+
+        $servicios = DB::table('servicios')
+        ->join('vehiculos', 'servicios.vehiculo_id','=','vehiculos.id')
+        ->select('servicios.*',"vehiculos.matricula")
+        ->get();
+        return view('servicio.index',['servicios'=>$servicios]);
     }
 
     /**
@@ -60,5 +104,13 @@ class ServicioController extends Controller
     public function destroy(string $id)
     {
         //
+        $servicio= Servicio::find($id);
+        $servicio->delete();
+
+        $servicios = DB::table('servicios')
+        ->join('vehiculos','servicios.vehiculo_id','=','vehiculos.id')
+        ->select('servicios.*',"vehiculos.matricula")
+        ->get();
+        return view('servicio.index', ['servicios'=>$servicios]);
     }
 }

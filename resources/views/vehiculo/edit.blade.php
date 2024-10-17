@@ -58,11 +58,11 @@
             <div class="mb-3">
               <label for="name" class="form-label">Tipo</label>
               <select id="tipo" name="tipo" class="block mt-1 w-full">
-                <option selected disabled value="{{$vehiculo->tipo}}"></option>
-                <option value="empleado">Sedan</option>
-                <option value="cliente">Camioneta</option>
-                <option value="empleado">Camion</option>
-                <option value="cliente">Moto</option>
+                <option selected disabled>{{$vehiculo->tipo}}</option>
+                <option value="Sedan">Sedan</option>
+                <option value="Camioneta">Camioneta</option>
+                <option value="Camion">Camion</option>
+                <option value="Moto">Moto</option>
             </select>
             </div>
 

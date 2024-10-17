@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropietarioController;
 use App\Http\Controllers\VehiculoController;
+use App\Http\Controllers\ServicioController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -33,6 +34,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/vehiculos/{vehiculo}', [VehiculoController::class, 'destroy'])->name('vehiculos.destroy');
     Route::put('/vehiculos/{vehiculo}', [VehiculoController::class, 'update'])->name('vehiculos.update');
     Route::get('/vehiculos/{vehiculo}/edit', [VehiculoController::class, 'edit'])->name('vehiculos.edit');
+
+     //------------ // SERVICIOS // ---------->
+     Route::get('/servicios',[ServicioController::class, 'index'])->name('servicios.index');
+     Route::post('/servicios',[ServicioController::class, 'store'])->name('servicios.store');
+     Route::get('/servicios/create', [ServicioController::class, 'create'])->name('servicios.create');
+     Route::delete('/servicios/{servicio}', [ServicioController::class, 'destroy'])->name('servicios.destroy');
+     Route::put('/servicios/{servicio}', [ServicioController::class, 'update'])->name('servicios.update');
+     Route::get('/servicios/{servicio}/edit', [ServicioController::class, 'edit'])->name('servicios.edit');
 
 
 
