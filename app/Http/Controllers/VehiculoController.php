@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Vehiculo;
+use Illuminate\Support\Facades\DB;
 
 class VehiculoController extends Controller
 {
@@ -11,7 +13,11 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-        //
+        $vehiculos = DB::table('vehiculos')
+        ->join('propietarios', 'vehiculos.propietario_id', '=', 'propietarios.id') // Cambia 'propietario' a 'propietarios'
+        ->select('vehiculos.*', 'propietarios.nombre')
+        ->get();
+        return view('vehiculo.index',['vehiculos'=>$vehiculos]);
     }
 
     /**
@@ -20,6 +26,11 @@ class VehiculoController extends Controller
     public function create()
     {
         //
+        $propietarios=DB::table('propietarios')
+        ->orderby ('nombre')
+        ->get();
+        return view('vehiculo.create',['propietarios'=>$propietarios]);
+        
     }
 
     /**
@@ -28,6 +39,20 @@ class VehiculoController extends Controller
     public function store(Request $request)
     {
         //
+        $vehiculo = new Vehiculo();
+        $vehiculo->propietario_id=$request->propi;
+        $vehiculo->marca=$request->marca;
+        $vehiculo->modelo=$request->modelo;
+        $vehiculo->año=$request->year;
+        $vehiculo->matricula=$request->matricula;
+        $vehiculo->tipo=$request->tipo;
+        $vehiculo->save();
+
+        $vehiculos = DB::table('vehiculos')
+        ->join('propietarios', 'vehiculos.propietario_id','=','propietarios.id')
+        ->select('vehiculos.*',"propietarios.nombre")
+        ->get();
+        return view('vehiculo.index',['vehiculos'=>$vehiculos]);
     }
 
     /**
@@ -44,6 +69,11 @@ class VehiculoController extends Controller
     public function edit(string $id)
     {
         //
+        $vehiculo = Vehiculo::find($id);
+        $propietarios =DB::table('propietarios')
+        ->orderBy('nombre')
+        ->get();
+        return view('vehiculo.edit', ['vehiculo'=>$vehiculo, 'propietarios'=>$propietarios]);
     }
 
     /**
@@ -52,6 +82,21 @@ class VehiculoController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $vehiculo = Vehiculo::find($id);
+
+        $vehiculo->propietario_id=$request->propi;
+        $vehiculo->marca=$request->marca;
+        $vehiculo->modelo=$request->modelo;
+        $vehiculo->año=$request->year;
+        $vehiculo->matricula=$request->matricula;
+        $vehiculo->tipo=$request->tipo;
+        $vehiculo->save();
+
+        $vehiculos = DB::table('vehiculos')
+        ->join('propietarios', 'vehiculos.propietario_id','=','propietarios.id')
+        ->select('vehiculos.*',"propietarios.nombre")
+        ->get();
+        return view('vehiculo.index',['vehiculos'=>$vehiculos]);
     }
 
     /**
@@ -60,5 +105,14 @@ class VehiculoController extends Controller
     public function destroy(string $id)
     {
         //
+        $vehiculo= Vehiculo::find($id);
+        $vehiculo->delete();
+
+        $vehiculos = DB::table('vehiculos')
+        ->join('propietarios','vehiculos.propietario_id','=','propietarios.id')
+        ->select('vehiculos.*',"propietarios.nombre")
+        ->get();
+        return view('vehiculo.index', ['vehiculos'=>$vehiculos]);
+
     }
 }
