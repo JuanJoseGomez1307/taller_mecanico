@@ -15,8 +15,8 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/propietarios', [PropietarioController::class, 'index'])->name('propietarios.index');
-
-
+    Route::post('/propietarios', [PropietarioController::class, 'store'])->name('propietarios.store');
+    Route::get('/propietarios/create', [PropietarioController::class, 'create'])->name('propietarios.create');
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

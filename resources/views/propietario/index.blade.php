@@ -7,13 +7,15 @@
     </x-slot>
 
     <div class="container">
-        <br>   
+        <br> 
+        <a href="{{ route('propietarios.create') }}" class="btn btn-success">Agregar Propietario</a>
+        
         <table class="table">
             <thead>
               <tr>
                 <th scope="col">Codigo</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
+                <th scope="col">Apellidos</th>
                 <th scope="col">Telefono</th>
                 <th scope="col">Email</th>
                 <th scope="col">Direccion</th>
@@ -26,7 +28,7 @@
               <tr>
                 <th scope="row">{{$propietario->id}}</th>
                 <td>{{$propietario->nombre}}</td>
-                <td>{{$propietario->apellido}}</td>
+                <td>{{$propietario->apellidos}}</td>
                 <td>{{$propietario->telefono}}</td>
                 <td>{{$propietario->email}}</td>
                 <td>{{$propietario->direccion}}</td>

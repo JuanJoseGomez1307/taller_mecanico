@@ -21,7 +21,7 @@ class PropietarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('propietario.create');
     }
 
     /**
@@ -29,7 +29,16 @@ class PropietarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $propietario = new Propietario();
+         $propietario->nombre = $request->nombre;
+         $propietario->apellidos = $request->apellidos;
+         $propietario->telefono = $request->telefono;
+         $propietario->email = $request->email;
+         $propietario->direccion = $request->direccion;
+         $propietario->save();
+ 
+         // Redirigir a la lista de propietarios
+         return redirect()->route('propietarios.index');
     }
 
     /**
