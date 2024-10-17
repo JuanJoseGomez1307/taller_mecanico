@@ -70,6 +70,10 @@ class PropietarioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $propietario = Propietario::find($id);
+        $propietario->delete();
+
+        // Redirigir a la lista de categorías
+        return redirect()->route('propietarios.index');
     }
 }

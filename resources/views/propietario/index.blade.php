@@ -33,6 +33,13 @@
                 <td>{{$propietario->email}}</td>
                 <td>{{$propietario->direccion}}</td>
                 <td>
+
+                    <form action="{{route('propietarios.destroy', ['propietario'=>$propietario->id])}}" method="POST" 
+                        style="display: inline-block">
+                        @method('delete')
+                        @csrf
+                        <input class="btn btn-danger" type="submit" value="Eliminar">
+                        </form>
                 </td>
               </tr>
               @endforeach

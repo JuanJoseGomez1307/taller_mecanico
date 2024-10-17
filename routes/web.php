@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/propietarios', [PropietarioController::class, 'index'])->name('propietarios.index');
     Route::post('/propietarios', [PropietarioController::class, 'store'])->name('propietarios.store');
     Route::get('/propietarios/create', [PropietarioController::class, 'create'])->name('propietarios.create');
-
+    Route::delete('propietarios/{propietario}', [PropietarioController::class, 'destroy'])->name('propietarios.destroy');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
