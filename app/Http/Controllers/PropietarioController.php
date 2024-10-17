@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Propietario;
 
 class PropietarioController extends Controller
 {
@@ -11,7 +12,8 @@ class PropietarioController extends Controller
      */
     public function index()
     {
-        //
+        $propietarios= Propietario::all();// Traer la info de categoriaS, traer todos sus registros
+        return view('propietario.index',['propietarios'=>$propietarios]);
     }
 
     /**
