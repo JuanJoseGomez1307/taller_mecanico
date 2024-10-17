@@ -33,6 +33,7 @@
                 <td>{{$propietario->email}}</td>
                 <td>{{$propietario->direccion}}</td>
                 <td>
+                    <a href="{{route('propietarios.edit',['propietario'=>$propietario->id])}}" class="btn btn-info">Editar</a>
 
                     <form action="{{route('propietarios.destroy', ['propietario'=>$propietario->id])}}" method="POST" 
                         style="display: inline-block">

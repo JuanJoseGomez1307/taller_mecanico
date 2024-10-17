@@ -54,7 +54,8 @@ class PropietarioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $propietario = Propietario::find($id);
+        return view('propietario.edit', ['propietario' => $propietario]);
     }
 
     /**
@@ -62,7 +63,16 @@ class PropietarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         $propietario = Propietario::find($id);
+         $propietario->nombre = $request->nombre;
+         $propietario->apellidos = $request->apellidos;
+         $propietario->telefono = $request->telefono;
+         $propietario->email = $request->email;
+         $propietario->direccion = $request->direccion;
+         $propietario->save();
+
+        // Redirigir a la lista de categorías
+        return redirect()->route('propietarios.index');
     }
 
     /**
